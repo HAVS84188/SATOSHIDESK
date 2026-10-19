@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SatoshiDesk | Institutional BTC Terminal & Blockchain Ledger</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- TOP INSTITUTIONAL HEADER -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo-dot"></span>
+      <h1>SATOSHI<span>DESK</span></h1>
+      <span class="badge">v2.5 VANILLA JS</span>
+    </div>
+
+    <div class="ticker-bar">
+      <div class="stat">
+        <span class="label">BTC / USDT</span>
+        <span id="live-price" class="val price-up">$--,---.--</span>
+      </div>
+      <div class="stat">
+        <span class="label">24H CHANGE</span>
+        <span id="price-change" class="val">0.00%</span>
+      </div>
+      <div class="stat">
+        <span class="label">RSI (14)</span>
+        <span id="live-rsi" class="val">--</span>
+      </div>
+      <div class="stat">
+        <span class="label">PORTFOLIO EQUITY</span>
+        <span id="total-equity" class="val">$100,000.00</span>
+      </div>
+      <div class="stat">
+        <span class="label">STREAM STATUS</span>
+        <span id="ws-status" class="val">CONNECTING...</span>
+      </div>
+    </div>
+
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="terminal">1. Trading Terminal</button>
+      <button class="tab-btn" data-tab="blockchain">2. SHA-256 Blockchain (<span id="mempool-count">0</span>)</button>
+      <button class="tab-btn" data-tab="quant">3. DeepSeek AI Quant</button>
+      <a href="guide.html" class="tab-link">📘 Beginner's Guide &amp; About</a>
+    </nav>
+  </header>
+
+  <!-- TAB 1: LIVE TRADING TERMINAL -->
+  <main id="tab-terminal" class="tab-content active">
+    <div class="terminal-grid">
+      <!-- Left: Custom HTML5 Canvas Chart -->
+      <section class="panel chart-panel">
+        <div class="panel-header">
+          <h2>Live BTC/USDT Candlestick &amp; SMA Engine (HTML5 Canvas)</h2>
+          <div class="chart-controls">
+            <label><input type="checkbox" id="toggle-sma" checked /> SMA (7 &amp; 25)</label>
+            <button id="btn-sim-whale" class="btn-sm">⚡ Simulate $250K Whale Spike</button>
+          </div>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas id="btc-chart"></canvas>
+        </div>
+      </section>
+
+      <!-- Middle: Paper Trading & Algo Bot -->
+      <section class="panel trade-panel">
+        <div class="panel-header">
+          <h2>Execution Desk ($100K Paper Account)</h2>
+        </div>
+        <div class="balances">
+          <div><span>Available USDT:</span> <strong id="bal-usdt">$100,000.00</strong></div>
+          <div><span>Holdings BTC:</span> <strong id="bal-btc">0.0000 BTC</strong></div>
+        </div>
+
+        <form id="order-form" class="order-form" onsubmit="return false;">
+          <div class="form-row">
+            <label>Order Type</label>
+            <select id="order-type">
+              <option value="MARKET">Market Order (Instant Fill)</option>
+              <option value="LIMIT">Limit Order (Target Trigger Price)</option>
+            </select>
+          </div>
+          <div class="form-row" id="limit-price-row" style="display:none;">
+            <label>Trigger Price (USDT)</label>
+            <input type="number" id="order-limit-price" step="0.1" placeholder="e.g. 84500" />
+          </div>
+          <div class="form-row">
+            <label>Amount (BTC)</label>
+            <input type="number" id="order-amount" step="0.01" value="0.25" min="0.01" required />
+          </div>
+          <div class="btn-group">
+            <button type="button" id="btn-buy" class="btn btn-buy">BUY / LONG BTC</button>
+            <button type="button" id="btn-sell" class="btn btn-sell">SELL / SHORT BTC</button>
+          </div>
+        </form>
+
+        <div class="bot-box">
+          <div class="bot-header">
+            <span>🤖 Autonomous RSI Scalper Bot</span>
+            <input type="checkbox" id="toggle-bot" />
+          </div>
+          <p class="bot-desc">Auto-buys 0.10 BTC when RSI drops below 32 (Oversold) &amp; auto-sells when RSI rises above 68 (Overbought).</p>
+        </div>
+
+        <div class="sub-header">Open Limit Orders</div>
+        <ul id="open-orders-list" class="scroll-list"></ul>
+      </section>
+
+      <!-- Right: Live Whale Tape & Trade History -->
+      <section class="panel tape-panel">
+        <div class="panel-header">
+          <h2>Live Market Tape &amp; Whale Radar</h2>
+        </div>
+        <ul id="whale-tape" class="scroll-list"></ul>
+        <div class="sub-header">Your Executed Trades</div>
+        <ul id="trade-history" class="scroll-list"></ul>
+      </section>
+    </div>
+  </main>
+
+  <!-- TAB 2: SHA-256 BLOCKCHAIN SETTLEMENT ENGINE -->
+  <main id="tab-blockchain" class="tab-content">
+    <div class="blockchain-layout">
+      <div class="panel mempool-panel">
+        <div class="panel-header">
+          <h2>Cryptographic Settlement Engine (SHA-256)</h2>
+          <button id="btn-mine-block" class="btn btn-buy">⛏️ Mine Pending Block (PoW: 000)</button>
+        </div>
+        <p class="muted-text">
+          Every trade you execute in the Terminal enters the <strong>Unconfirmed Mempool</strong> below.
+          Click <em>Mine Pending Block</em> to run a real Proof-of-Work loop finding a cryptographic hash starting with <code>000</code>.
+          Click <strong>Tamper Data</strong> on any mined block to see how modifying past transactions invalidates the blockchain!
+        </p>
+        <div id="mining-status" class="mining-status">Status: Idle — Waiting for block mining command.</div>
+        <div class="sub-header">Pending Mempool Transactions</div>
+        <ul id="mempool-list" class="scroll-list"></ul>
+      </div>
+
+      <div class="panel chain-panel">
+        <div class="panel-header">
+          <h2>Immutable Blockchain Ledger</h2>
+          <span id="chain-validity" class="badge badge-valid">✓ CHAIN CRYPTOGRAPHICALLY VALID</span>
+        </div>
+        <div id="blockchain-container" class="chain-cards"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- TAB 3: DEEPSEEK CLOUD AI QUANT -->
+  <main id="tab-quant" class="tab-content">
+    <div class="quant-layout">
+      <div class="panel quant-config">
+        <div class="panel-header">
+          <h2>DeepSeek Cloud API Configuration</h2>
+        </div>
+        <p class="muted-text">
+          Zero local RAM overhead. Paste a DeepSeek API key (saved privately in your browser's <code>localStorage</code>) OR leave it blank to use the built-in <strong>Deterministic Quantitative Engine</strong>!
+        </p>
+        <div class="form-row">
+          <label>DeepSeek API Key (Optional)</label>
+          <input type="password" id="deepseek-key" placeholder="sk-... (Leave blank for Built-in Quant)" />
+        </div>
+        <div class="form-row">
+          <label>Model Endpoint</label>
+          <select id="deepseek-model">
+            <option value="deepseek-chat">deepseek-chat (DeepSeek-V3 Fast)</option>
+            <option value="deepseek-reasoner">deepseek-reasoner (DeepSeek-R1 Reasoning)</option>
+          </select>
+        </div>
+        <button id="btn-run-quant" class="btn btn-buy" style="width:100%; margin-top:12px;">
+          🧠 Generate Live Institutional Briefing
+        </button>
+      </div>
+
+      <div class="panel quant-output">
+        <div class="panel-header">
+          <h2>Quantitative Telemetry &amp; Strategy Report</h2>
+        </div>
+        <pre id="quant-report" class="quant-report">Click "Generate Live Institutional Briefing" to analyze live BTC price action, RSI momentum, SMA structure, and portfolio exposure...</pre>
+      </div>
+    </div>
+  </main>
+
+  <!-- BASE FOOTER -->
+  <footer class="site-footer">
+    <span>SatoshiDesk Institutional Terminal &amp; SHA-256 Blockchain Engine</span>
+    <strong>Site developed by Atharva Veer Singh</strong>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

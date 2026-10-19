@@ -1,0 +1,439 @@
+:root {
+  --bg-dark: #0b0e14;
+  --bg-panel: #121721;
+  --bg-input: #1b2230;
+  --border: #232c3d;
+  --text-main: #e6edf3;
+  --text-muted: #8492a6;
+  --green: #00e676;
+  --red: #ff3b69;
+  --accent: #38bdf8;
+  --gold: #f59e0b;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+body.scrollable-page {
+  height: auto;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* Header & Top Ticker */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+}
+
+.brand h1 {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+.brand h1 span {
+  color: var(--accent);
+}
+
+.badge {
+  font-size: 0.7rem;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+
+.badge-valid {
+  background: rgba(0, 230, 118, 0.15);
+  color: var(--green);
+}
+.badge-invalid {
+  background: rgba(255, 59, 105, 0.2);
+  color: var(--red);
+}
+
+.ticker-bar {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+.stat .label {
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+.stat .val {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.price-up { color: var(--green); }
+.price-down { color: var(--red); }
+
+/* Navigation Tabs & Links */
+.tabs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tab-btn, .tab-link {
+  background: var(--bg-input);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 7px 13px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+}
+.tab-btn:hover, .tab-link:hover {
+  border-color: var(--accent);
+  color: var(--text-main);
+}
+.tab-btn.active, .tab-link.active-link {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+/* Main Tab Views */
+.tab-content {
+  display: none;
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+}
+.tab-content.active {
+  display: block;
+}
+
+.terminal-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr 1fr;
+  gap: 12px;
+  height: calc(100vh - 118px);
+}
+
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.panel-header h2 {
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.chart-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.78rem;
+}
+
+.canvas-wrapper {
+  flex: 1;
+  position: relative;
+  min-height: 280px;
+}
+#btc-chart {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Trading Controls */
+.balances {
+  background: var(--bg-input);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+  font-size: 0.78rem;
+}
+.form-row input, .form-row select {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+
+.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.btn {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.btn-buy { background: var(--green); color: #000; }
+.btn-sell { background: var(--red); color: #fff; }
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 0.74rem;
+  border-radius: 4px;
+  border: 1px solid var(--gold);
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--gold);
+  cursor: pointer;
+}
+
+.bot-box {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.bot-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 0.82rem;
+  margin-bottom: 4px;
+}
+.bot-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.sub-header {
+  font-size: 0.73rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 8px 0 6px;
+  font-weight: 600;
+}
+
+.scroll-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+}
+.scroll-list li {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+}
+.whale-item {
+  background: rgba(245, 158, 11, 0.15);
+  border-left: 3px solid var(--gold);
+}
+
+/* Blockchain & Quant Tabs */
+.blockchain-layout, .quant-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 12px;
+  height: calc(100vh - 118px);
+}
+.muted-text {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.mining-status {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 8px;
+  background: var(--bg-input);
+  border-radius: 4px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.chain-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+.block-card {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green);
+  padding: 10px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+.block-card.tampered {
+  border-left-color: var(--red);
+  background: rgba(255, 59, 105, 0.12);
+}
+.quant-report {
+  font-family: var(--font-mono);
+  font-size: 0.83rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--text-main);
+  overflow-y: auto;
+  flex: 1;
+  background: var(--bg-input);
+  padding: 12px;
+  border-radius: 5px;
+}
+
+/* Guide Page Layout */
+.guide-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 18px;
+  flex: 1;
+}
+.hero-card {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(0, 230, 118, 0.08));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px;
+  margin-bottom: 20px;
+}
+.hero-card h2 {
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+.hero-card p {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+}
+.guide-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+}
+.guide-card h3 {
+  font-size: 1rem;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+.guide-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.guide-card ul {
+  padding-left: 18px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+.guide-card li {
+  margin-bottom: 6px;
+}
+
+/* Footer Credit */
+.site-footer {
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border);
+  padding: 8px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.site-footer strong {
+  color: var(--accent);
+  letter-spacing: 0.4px;
+}
+
+@media (max-width: 960px) {
+  body {
+    height: auto;
+    overflow-y: auto;
+  }
+  .terminal-grid, .blockchain-layout, .quant-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}

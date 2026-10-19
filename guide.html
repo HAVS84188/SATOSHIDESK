@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beginner's Guide & Architecture | SatoshiDesk</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="scrollable-page">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo-dot"></span>
+      <h1>SATOSHI<span>DESK</span></h1>
+      <span class="badge">DOCUMENTATION &amp; GUIDE</span>
+    </div>
+
+    <nav class="tabs">
+      <a href="index.html" class="tab-link active-link">⬅ Back to Live Trading Terminal</a>
+    </nav>
+  </header>
+
+  <!-- BEGINNER GUIDE CONTENT -->
+  <main class="guide-wrapper">
+    <section class="hero-card">
+      <h2>📘 Welcome to SatoshiDesk: The Complete Beginner's Guide</h2>
+      <p>
+        <strong>SatoshiDesk</strong> is a full-stack, in-browser Bitcoin Trading Terminal, Autonomous Algorithmic Bot Sandbox,
+        SHA-256 Blockchain Settlement Engine, and AI Quantitative Analyst built from scratch using <strong>100% Pure Vanilla JavaScript (Zero Frameworks)</strong>.
+        Whether you are new to crypto trading or evaluating this project's software architecture, this page explains everything shown on the screen.
+      </p>
+    </section>
+
+    <div class="guide-grid">
+      <!-- Card 1 -->
+      <article class="guide-card">
+        <h3>1. Reading the Live Candlestick Chart (HTML5 Canvas)</h3>
+        <p>Instead of using third-party chart libraries, SatoshiDesk renders its own 60FPS candlestick chart using 2D Canvas coordinate mathematics.</p>
+        <ul>
+          <li><strong>Green Candle (Bullish):</strong> The price closed higher than it opened during that time interval.</li>
+          <li><strong>Red Candle (Bearish):</strong> The price closed lower than it opened.</li>
+          <li><strong>Wicks (Thin Vertical Lines):</strong> Show the highest and lowest price reached during that candle.</li>
+          <li><strong>SMA-7 (Cyan Line) &amp; SMA-25 (Gold Line):</strong> Simple Moving Averages smooth out price noise. When the fast Cyan line crosses above the slow Gold line, traders call it a <em>Bullish Crossover</em>.</li>
+        </ul>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="guide-card">
+        <h3>2. How the $100,000 Paper Trading Desk Works</h3>
+        <p>You start with <strong>$100,000 in virtual USDT</strong> (Tether, pegged 1:1 to the US Dollar) so you can practice trading real-time Bitcoin price movements with zero financial risk.</p>
+        <ul>
+          <li><strong>Market Order:</strong> Buys or sells Bitcoin immediately at the current live market price.</li>
+          <li><strong>Limit Order:</strong> Lets you set a target price (e.g., Buy if BTC drops to $84,000). SatoshiDesk's JavaScript order-matching engine monitors every live tick and fills your order automatically the millisecond the price crosses your target.</li>
+          <li><strong>Portfolio Equity:</strong> Automatically calculates your total net worth: <code>Available USDT + (BTC Holdings × Live BTC Price)</code>.</li>
+        </ul>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="guide-card">
+        <h3>3. RSI (14) &amp; The Autonomous Trading Bot</h3>
+        <p>In the top ticker bar, you will see <strong>RSI (14)</strong>—the <em>Relative Strength Index</em>, a momentum oscillator ranging from 0 to 100.</p>
+        <ul>
+          <li><strong>RSI Below 32 (Oversold):</strong> Indicates sellers are exhausted and the price may bounce upward.</li>
+          <li><strong>RSI Above 68 (Overbought):</strong> Indicates buyers are overheated and the price may cool down.</li>
+          <li><strong>Autonomous RSI Scalper Bot:</strong> When you check the bot toggle in the terminal, JavaScript automatically buys 0.10 BTC when RSI drops below 32 and sells when RSI climbs above 68!</li>
+        </ul>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="guide-card">
+        <h3>4. Whale Radar &amp; Web Audio Synthesizer</h3>
+        <p>In financial markets, a <strong>"Whale"</strong> is an institutional trader or wealthy entity executing massive orders capable of moving the market price.</p>
+        <ul>
+          <li><strong>Live Market Tape:</strong> Streams real-time trades on the right side of the terminal.</li>
+          <li><strong>Whale Detection (&gt;$50,000 USD):</strong> Whenever a single trade exceeds $50,000 in value (or when you click the <em>"Simulate $250K Whale Spike"</em> button), the trade highlights in gold and triggers a synthesized sonar ping using the browser's native <strong>Web Audio API</strong> (zero MP3 files required).</li>
+        </ul>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="guide-card">
+        <h3>5. SHA-256 Blockchain &amp; Proof-of-Work Mining</h3>
+        <p>How does Bitcoin verify transactions without a central bank? Tab 2 demonstrates a real cryptographic blockchain ledger.</p>
+        <ul>
+          <li><strong>Unconfirmed Mempool:</strong> Every trade you make in Tab 1 is placed into a waiting room called the <em>Mempool</em>.</li>
+          <li><strong>Proof-of-Work (PoW) Mining:</strong> Clicking <em>Mine Pending Block</em> bundles your mempool trades into a block and runs a SHA-256 hashing loop, incrementing a number called a <strong>Nonce</strong> thousands of times until it discovers a cryptographic hash starting with three zeros (<code>000...</code>).</li>
+          <li><strong>Tamper Detection:</strong> Every block stores the hash of the block before it. If you click <em>"Tamper With Block Data"</em>, the block's SHA-256 signature changes, immediately breaking the chain and alerting the network!</li>
+        </ul>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="guide-card">
+        <h3>6. Software Engineering Highlights (Under the Hood)</h3>
+        <p>Built specifically for high performance and low memory consumption:</p>
+        <ul>
+          <li><strong>Custom Pub/Sub Reactive Store:</strong> Unidirectional state management built without React or Redux.</li>
+          <li><strong>Hybrid Resilient Market Stream:</strong> Connects to Binance's live WebSocket (<code>wss://stream.binance.com</code>) and automatically falls back to a synthetic Monte-Carlo tick generator if your firewall or campus Wi-Fi blocks crypto streams.</li>
+          <li><strong>DeepSeek Cloud + Deterministic Quant Engine:</strong> Supports live LLM telemetry analysis via the DeepSeek API, plus an offline mathematical rule engine that works immediately with zero API keys.</li>
+        </ul>
+      </article>
+    </div>
+  </main>
+
+  <!-- BASE FOOTER -->
+  <footer class="site-footer">
+    <span>SatoshiDesk Institutional Terminal &amp; SHA-256 Blockchain Engine</span>
+    <strong>Site developed by Atharva Veer Singh</strong>
+  </footer>
+</body>
+</html>
